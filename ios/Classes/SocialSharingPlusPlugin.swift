@@ -43,6 +43,8 @@ public class SocialSharingPlusPlugin: NSObject, FlutterPlugin {
             shareToReddit(arguments: arguments, result: result, isOpenBrowser: isOpenBrowser)
         case "shareToTelegram":
             shareToTelegram(arguments: arguments, result: result, isOpenBrowser: isOpenBrowser)
+        case "shareToViber":
+            shareToViber(arguments: arguments, result: result, isOpenBrowser: isOpenBrowser)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -83,6 +85,23 @@ public class SocialSharingPlusPlugin: NSObject, FlutterPlugin {
             openUrl(urlString: urlString, webUrlString: webUrlString, result: result, isOpenBrowser: isOpenBrowser)
         } else if let imageUri = arguments["media"] as? String {
             shareImageToSpecificApp(imageUri: imageUri, appUrlScheme: "twitter://", result: result, isOpenBrowser: isOpenBrowser)
+        }
+    }
+
+    /// Shares content to Viber.
+    /// - Parameters:
+    ///   - arguments: Arguments dictionary containing content and image URIs.
+    ///   - result: FlutterResult object to complete the call.
+    ///   - isOpenBrowser: Flag indicating whether to open in browser if app not installed.
+    private func shareToViber(arguments: [String: Any], result: @escaping FlutterResult, isOpenBrowser: Bool) {
+        if let content = arguments["content"] as? String, let imageUri = arguments["media"] as? String {
+            shareContentAndImageToSpecificApp(content: content, imageUri: imageUri, appUrlScheme: "viber://forward?text=\(content)", webUrlString: "https://www.viber.com/share?text=\(content)", result: result, isOpenBrowser: isOpenBrowser)
+        } else if let content = arguments["content"] as? String {
+            let urlString = "viber://forward?text=\(content)"
+            let webUrlString = "https://www.viber.com/share?text=\(content)"
+            openUrl(urlString: urlString, webUrlString: webUrlString, result: result, isOpenBrowser: isOpenBrowser)
+        } else if let imageUri = arguments["media"] as? String {
+            shareImageToSpecificApp(imageUri: imageUri, appUrlScheme: "viber://", result: result, isOpenBrowser: isOpenBrowser)
         }
     }
 

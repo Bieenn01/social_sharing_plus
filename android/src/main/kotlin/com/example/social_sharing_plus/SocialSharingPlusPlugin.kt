@@ -40,6 +40,8 @@ class SocialSharingPlusPlugin : FlutterPlugin, MethodCallHandler {
                     shareToSocialMedia(SocialConstants.REDDIT_PACKAGE_NAME, call, result)
             SocialConstants.TELEGRAM ->
                     shareToSocialMedia(SocialConstants.TELEGRAM_PACKAGE_NAME, call, result)
+            SocialConstants.VIBER ->
+                    shareToSocialMedia(SocialConstants.VIBER_PACKAGE_NAME, call, result)
             else -> result.notImplemented()
         }
     }
@@ -178,6 +180,8 @@ class SocialSharingPlusPlugin : FlutterPlugin, MethodCallHandler {
                             "${SocialConstants.REDDIT_WEB_URL}$content"
                     SocialConstants.TELEGRAM_PACKAGE_NAME ->
                             "${SocialConstants.TELEGRAM_WEB_URL}$content"
+                    SocialConstants.VIBER_PACKAGE_NAME ->
+                            "${SocialConstants.VIBER_PACKAGE_NAME}$content"
                     else -> null
                 }
 
